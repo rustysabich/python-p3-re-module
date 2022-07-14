@@ -1,4 +1,4 @@
-# The `re` Module
+# The "re" Module
 
 ## Learning Goals
 
