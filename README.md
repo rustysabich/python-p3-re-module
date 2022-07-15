@@ -72,7 +72,7 @@ As with most Python objects, we can see that there are a lot of magic methods
 in there- we're typically not meant to call those, so we'll skip ahead to the
 standard instance methods. Let's start with `search()`.
 
-### `search()`
+### `search()`, `match()`, and `fullmatch()`
 
 The `search()` instance method of compiled `re` objects is exactly what it
 sounds like- it searches to see if there is a match for your regular expression
@@ -126,12 +126,29 @@ The `search()`, `match()`, and `fullmatch()` methods are useful if you're just
 checking to see if a match exists; if you're looking for the strings that match
 your pattern, `findall()` is a better option.
 
+<details>
+  <summary>
+    <em>Which <code>re</code> method returns an <code>re.Match</code> object
+        for the first match anywhere in a string?</em>
+  </summary>
+
+  <h3><code>search()</code></h3>
+  <p><code>match()</code> returns a match object if there is a match that
+     starts at the <code>0</code> index of your search string.</p>
+  <p><code>fullmatch()</code> returns a match object if your pattern fully
+     matches your search string- from <code>0</code> all the way to the end.</p>
+</details>
+<br/>
+
 ### `findall()`
 
 The `findall()` method is very straightforward (and therefore very useful).
 Like `search()`, it searches to see if there are matches for your RegEx within
 the text. `findall()` returns a list of matching strings instead of an
 `re.Match` object.
+
+Let's use the `findall()` method to isolate the three letter words from a
+sentence:
 
 ```py
 import re
@@ -148,55 +165,63 @@ don't have to fuss around with `dir()` to find more information), it is the
 
 ### `split()` and `sub()`
 
-***
+Regular expressions are helpful in finding strings that match certain patterns,
+but they also give us the ability to manipulate strings. The `re` module
+provides us many methods to do this- `split()` and `sub()` are the most useful.
 
-## Lesson Section
-
-Lorem ipsum dolor sit amet. Ut velit fugit et porro voluptas quia sequi quo
-libero autem qui similique placeat eum velit autem aut repellendus quia. Et
-Quis magni ut fugit obcaecati in expedita fugiat est iste rerum qui ipsam
-ducimus et quaerat maxime sit eaque minus. Est molestias voluptatem et nostrum
-recusandae qui incidunt Quis 33 ipsum perferendis sed similique architecto.
+`split()` returns a list of strings that surround a pattern that you choose to
+split around. Let's use `split()` to try and build a clear narrative for a
+4-year-old's day at pre-K:
 
 ```py
-# python code block
-print("statement")
-# => statement
-```
-
-```js
-// javascript code block
-console.log("use these for comparisons between languages.")
-// => use these for comparisons between languages.
-```
-
-```console
-echo "bash/zshell statement"
-# => bash/zshell statement
+story = "I went to the park and I saw my friend and my friend's dog was there and we ran around and there was another dog and the other dog didn't like my friend's dog but then they got used to each other and they ran to the creek and we ran to the creek too to keep them out of the water and they went in the water and then we went in the water and the water was cold and we got out of the water and Mrs. Smith got mad at us and we went back to the classroom and got hot chocolate and then we watched a movie and now we're going home."
+and_pattern = re.compile(r'\sand')
+and_pattern.split(story)
+# => ['I went to the park', ' I saw my friend', " my friend's dog was there", ' we ran around', ' there was another dog', " the other dog didn't like my friend's dog but then they got used to each other", ' they ran to the creek', ' we ran to the creek too to keep them out of the water', ' they went in the water', ' then we went in the water', ' the water was cold', ' we got out of the water', ' Mrs. Smith got mad at us', ' we went back to the classroom', ' got hot chocolate', ' then we watched a movie', " now we're going home."]
 ```
 
 <details>
   <summary>
-    <em>Check for understanding text goes here! <code>Code statements go here.</code></em>
+    <em>What does <code>\s</code> replace?</em>
   </summary>
 
-  <h3>Answer.</h3>
-  <p>Elaboration on answer.</p>
+  <h3>A single whitespace character.</h3>
 </details>
 <br/>
+
+Now it's a bit easier to make sense of what happened there.
+
+The `sub()` method allows us to further manipulate our search string. In
+addition to the search string, `sub()` takes a substitution as a parameter.
+Let's replace those "and"s with some punctuation:
+
+```py
+and_pattern.sub(".", story)
+# => "I went to the park. I saw my friend. my friend's dog was there. we ran around. there was another dog. the other dog didn't like my friend's dog but then they got used to each other. they ran to the creek. we ran to the creek too to keep them out of the water. they went in the water. then we went in the water. the water was cold. we got out of the water. Mrs. Smith got mad at us. we went back to the classroom. got hot chocolate. then we watched a movie. now we're going home."
+```
+
+That's much better.
 
 ***
 
 ## Conclusion
 
-Conclusion summary paragraph. Include common misconceptions and what students
-will be able to do moving forward.
+The `re` module in Python's standard library allows us to use regular
+expressions to search, validate, and replace. `re` contains several methods
+that will help you accomplish string-related tasks:
+
+- `search()`, `match()`, and `findall()` check for a single match in your search
+  string, returning `re.Match` objects if a match is found.
+- `findall()` returns a list of matching strings.
+- `split()` and `sub()` allow you to modify strings that would be more useful
+  in a different format.
 
 ***
 
 ## Resources
 
-- [Resource 1](https://www.python.org/doc/essays/blurb/)
-- [Reused Resource][reused resource]
+- [re - Regular expression operations - Python](https://docs.python.org/3/library/re.html)
+- [regex101][regex101]
+- [Python Regular Expressions - Google for Education](https://developers.google.com/edu/python/regular-expressions)
 
 [regex101]: https://regex101.com/
