@@ -2,8 +2,8 @@
 
 ## Learning Goals
 
-- Validate input using regular expressions.
-- Search for patterns using regular expressions.
+- Validate that strings match specific patterns using regular expressions.
+- Search for strings that match specific patterns using regular expressions.
 
 ***
 
