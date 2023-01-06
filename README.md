@@ -210,8 +210,8 @@ The `re` module in Python's standard library allows us to use regular
 expressions to search, validate, and replace. `re` contains several methods
 that will help you accomplish string-related tasks:
 
-- `search()`, `match()`, and `findall()` check for a single match in your search
-  string, returning `re.Match` objects if a match is found.
+- `search()`, `match()`, and `fullmatch()` check for a single match in your
+  search string, returning `re.Match` objects if a match is found.
 - `findall()` returns a list of matching strings.
 - `split()` and `sub()` allow you to modify strings that would be more useful
   in a different format.
